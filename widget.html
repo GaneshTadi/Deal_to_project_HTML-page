@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@mdi/font@6.x/css/materialdesignicons.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+   
+    <link rel ="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <meta charset="UTF-8">
+<script src="https://live.zwidgets.com/js-sdk/1.1/ZohoEmbededAppSDK.min.js"></script>
+
+<script>
+
+</script>
+</head>
+  <body>
+ 
+<div id="app">
+          <v-app>            
+            
+           
+      <template>
+        <!-- <p>Message is: {{ i }}</p>  -->
+             
+        <v-card style="height:0%"> 
+        
+          <!-- <v-col col="4"></v-col> -->
+          <v-col col  align="center"> <v-card-title class="lbl_title">Project creation trigar </v-card-title></v-col>
+          <!-- <v-col col="4"></v-col>     -->
+        
+          <span style="color:gray; margin-left: 50px; font-size: 15px;">Note: All the fields of deal and project are listed based on the data type </span>
+       
+          <v-row >
+            <v-col id="dd">
+              <v-card-title class="stage" style="margin-left:33px; color:gray; font-size: 18px;font-weight: revert;">Select deal stage: </v-card-title>
+                <v-select 
+                style ="margin-right:200px;margin-left:50px;"                       
+                label="Select"                 
+                :items="Pick_val"                                       
+                v-model="Pick"
+                >                  
+              </v-select>
+            </v-col>
+            <v-col>
+               
+            </v-col>
+       
+          </v-row> 
+ <v-row>
+  <v-col col="4">
+    
+    <div id ="check" style="margin-left: 60px; margin-top: -0px">  
+      <v-checkbox  
+          v-model="click"
+          style="margin-left: -14px;"
+          @click="check()"
+          label="Mapping Fields">
+         </v-checkbox>
+      </div> 
+  </v-col>
+  <v-col col="4"></v-col>
+  <v-col col="4"></v-col>
+ </v-row>
+  <div id="Diplay">
+    <!-- style="display:none" -->
+  
+      <div id="home" style="display:none">
+                 <v-row>                 
+                      
+                     <!-- Project Data -->
+                    
+                       <v-col col="5" id="Project_col" style="margin-left:50px ;margin-top:30px">
+                       <span class="lbl_project" > Projects fields</span>
+                          <v-select v-for="i in projects"                 
+                          :items="i"                                            
+                          id="Project_sel"                 
+                          v-model="i"
+                          > 
+                                                         
+                        </v-select>  
+
+                        <v-select v-for="i in Cus_fields"                 
+                        :items="i"                                            
+                        id="Project_sel"                 
+                        v-model="i"                        
+                        > 
+                                                       
+                      </v-select>  
+                        
+                                       
+                    </v-col>
+                        <v-col > 
+                           </v-col>
+                       
+                        <!--Deal Data  -->
+                        <v-col col="5" id="Deal_col" style="margin-right:50px ;margin-top:30px">  
+                          <span class="lbl_deal" > Deal fields</span>
+                          <v-select                        
+                          label="Select"                 
+                          :items="Deal_name"
+                          item-text="display" 
+                          item-value="apiname"                                           
+                          id="Project_sel"                 
+                          v-model="Deal_name1"
+                          >                          
+                        </v-select> 
+                        <!-- v-for="i in S_Date1" -->
+                        <v-select                        
+                        label="Select"                 
+                        :items="S_Date1" 
+                        item-text="display" 
+                        item-value="apiname"                                           
+                        id="Project_sel"                 
+                        v-model="apiname"
+                        >                          
+                      </v-select> 
+                      <!-- v-for="i in E_Date1" -->
+                      <v-select 
+                      label="Select"                 
+                      :items="E_Date1" 
+                      item-text="display" 
+                      item-value="apiname"                                            
+                      id="Project_sel" 
+                      v-model="apiname2"                
+                     
+                      >                          
+                   </v-select> 
+                   <!-- v-for="i in D_Date1" -->
+                   <v-select 
+                   label="Select"                 
+                   :items="D_Date1"                                            
+                   id="Project_sel"
+                   item-text="display" 
+                   item-value="apiname"                   
+                   v-model="dis"  
+                   >                          
+                </v-select> 
+                <v-select 
+                label="Select"                 
+                :items="Cu_Date1"                                            
+                id="Project_sel"
+                item-text="display" 
+                item-value="apiname"                   
+                v-model="Currency"
+                >                          
+             </v-select> 
+           
+          <v-select  label="Select" 
+                        
+          :items="Budget_type"                                            
+          id="Project_sel"                         
+          v-model="budget"
+          @change="onChange()" 
+          >                          
+        </v-select> 
+        <v-select 
+        label="Select"                       
+        :items="Budget11"                                            
+        id="Project_sel"
+        item-text="display" 
+        item-value="apiname"                   
+        v-model="Pro_budget"
+        >                          
+     </v-select> 
+     <v-select 
+     label="Select"                 
+     :items="Billing_type"                                            
+     id="Project_sel"                    
+     v-model="Billing"
+     >                          
+  </v-select> 
+           
+                     </v-col>
+                        <!-- <v-col col="-1">@click="sub()"</v-col>    @click="onChange()">-->
+                      </v-row> 
+                      <v-btn id="btn_setup"
+                        @click="set()">
+                        SetUp
+                      </v-btn>
+                 
+
+</div>
+</div> 
+   <!-- Alert for sucess project creation -->
+ 
+
+    <template style="margin-top:-200px;">
+    <v-alert  id="succ" style="display: none; margin-top: -400px; padding: 20px; margin-left: auto;margin-right: auto; width: 45%;"
+      type="success"
+              
+    >        
+    <label id="psucc"> </label>
+    <v-btn id="btn_ok" style="margin-top: 10px;"
+    @click="btn()">
+    OK
+  </v-btn>
+  </v-alert> 
+</template>   
+
+  <!-- End Alert for sucess project creation -->
+  
+        </v-card> 
+        
+                                
+      </template>          
+                   
+         
+          </v-app>
+
+         
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js" integrity="sha512-STof4xm1wgkfm7heWqFJVn58Hm3EtS31XFaagaa8VMReCXAkQnJZ+jEy8PCC/iT18dFy95WcExNHFTqLyp72eQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.js" integrity="sha512-nO7wgHUoWPYGCNriyGzcFwPSF+bPDOR+NvtOYy2wMcWkrnCNPKBcFEkU80XIN14UVja0Gdnff9EmydyLlOL7mQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js"></script>
+
+<script>
+  new Vue({
+      el: '#app',
+      vuetify: new Vuetify(),
+       data(){
+          return{
+              ovn:"hello",    
+              dialog: false,        
+             // select: [],
+             click:"",
+             
+              projects:[
+              { text: 'Project Title', value: 'Project Title' },
+              { text: 'Start Date', value: 'Start Date' },
+              { text: 'End Date', value: 'End Date' },
+              { text: 'Description', value: 'Description' },
+              { text: 'Currency', value: 'Currency' },
+              { text: 'Budget type', value: 'Budget type' },
+              { text: 'Project Budget', value: 'Project_Budget' },
+              { text: 'Billing Method', value: 'Billing_Method' }
+             
+              
+              ],
+             
+              i:'',
+             // d_date1:'',
+              apiname:'',
+              apiname2:'',
+              Deal_name1:'',
+              dis:'',
+              Currency:'',
+              Pro_budget:'',
+              Billing:'',
+              budget:'',              
+              Custom2:'',
+              Custom_fields:'',
+
+              Pick:'',
+             
+
+              articles: [],
+              Cus_fields:[],              
+              S_Date1:[],
+              //apiname:[],
+              E_Date1:[],
+              D_Date1:[],
+              Cu_Date1:[],
+              Budget11:[],
+             // Budget1:[],
+              Deal_name: [
+             
+              ],
+              Budget_type: [
+              { text: 'None'},
+              { text: 'Based on project Amount',value: 1},
+              { text: 'Based on project Hours',value: 2},
+              { text: 'Based on Milestone Amount',value: 3},
+              { text: 'Based on Milestone Hourse',value: 4},
+              { text: 'Based on task amount ',value: 5},
+              { text: 'Based on task hours',value: 6},
+              { text: 'Based on User Amount',value: 7},
+              { text: 'Based on User Hours',value: 8}
+              ],
+              Billing_type: [
+              { text: 'None'},
+              { text: 'Based on project hours',value: 1},
+              { text: 'Based on staff hours',value: 2},
+              { text: 'Fixed cost for project',value: 3},
+              { text: 'Based on task / issue hours',value: 4}
+              ],
+            /*  Currency_val:[
+              { text: 'INR-indian Rupes', value: 'INR' },
+              { text: 'USD- US Dollar', value: 'USD' }
+              ],
+              */
+              Pick_val:[],
+             
+              selected: [],
+              //Custom2:[],
+            //  Custom_fields:[],
+              cdc2:[],
+            
+             
+          }
+       },
+     
+       methods:{
+        btn(){         
+          document.getElementById("succ").style.display = "none";
+           //Pop up // 
+           ZOHO.CRM.UI.Popup.close()
+            .then(function(data){
+                console.log(data)
+            })
+         
+          //  Pop end up // 
+        },
+        check(){
+          var checking = this.click;
+          // console.log(checking)
+          if(checking){
+            document.getElementById("home").style.display = "block";
+          }
+          else{
+            document.getElementById("home").style.display = "none";
+          }
+         // document.getElementById("check").style.display = "none";
+          // 
+
+          
+        },
+      set(){
+
+            //Connector api zoho crm to project
+            // var data1 = {
+          
+            // }
+        
+            //Invoking the connector API to get portals of the user and populate them in a select list
+          //   ZOHO.CRM.CONNECTOR.invokeAPI("zohocrmtesting1.sampleprojects.getportals",data1).then(function(dataa){
+          //   response = dataa.response;
+          //   responsejson=JSON.parse(response);
+          //   portal=responsejson.portals;
+          //  // console.log("portal",portal);
+          //   PortalJSON=JSON.stringify(portal);
+          //  // console.log("PortalJSON",PortalJSON);
+          //   for (i = 0; i < portal.length; i++) 
+          //   {
+          //   portalid1=portal[i].id_string;
+          //   console.log("portalid----123",portalid1);
+          // // Portal_Id1.push(portalid);
+          //   //this.portal = portalid;
+          //   }
+            
+          //   })
+  
+            //Connector api zoho crm to project
+
+           var All_Deal_fields =[];
+           var All_cus_fields =[];
+           //var fff = [];
+         //  console.log(fff.push(this.i))
+           //console.log("fghjk",fff);
+           var ST_date=this.apiname;
+           var ED_date=this.apiname2;           
+           var Deal_name2=this.Deal_name1;
+           console.log("Deal_name2",Deal_name2)
+           var Disc=this.dis;
+           var Curr=this.Currency;  
+           var pro_bud = this.Pro_budget;  
+          console.log("project budget value not showing")      
+           console.log("pro_bud1111111",pro_bud);
+           var billing = this.Billing;
+           console.log("billing",billing);
+           var Cust = this.Custom2;
+           var budget2 = this.budget;
+           console.log("budget2",budget2)
+
+           var pick_1 = this.Pick;
+           console.log("pick_1",pick_1);
+
+          All_cus_fields.push(this.Custom_fields)
+          console.log("Custom",Cust) 
+                   
+           All_Deal_fields.push(Deal_name2);          
+           All_Deal_fields.push(ST_date);
+           All_Deal_fields.push(ED_date);
+           All_Deal_fields.push(Disc);
+           All_Deal_fields.push(Curr);                      
+           All_Deal_fields.push(budget2);
+           All_Deal_fields.push(pro_bud);
+           All_Deal_fields.push(billing);
+ 
+          var All_Project_fields =["Project_Title", "Start_Date", "End_Date", "Description", "Currency","Budget_type","Project_budget","billing_type"];     
+         // All_Project_fields.push(final_Custom_fields);
+       
+
+
+   // console.log("All_Project_fields ", JSON.stringify(All_Project_fields));        
+        console.log("All_Project_fields ",All_Project_fields);  
+        console.log("All_Deal_fields ",All_Deal_fields);
+       // console.log("All_Deal_fields ",All_cus_fields);
+       
+      let portalid= window.localStorage.getItem("portalid");  
+      //console.log("PPPPP",portalid);
+   //    Zoho crm custom function execute    //
+       var func_name = "zohocrmtesting1__deal_to_project";
+       var req_data ={
+       "arguments": JSON.stringify({
+        "Portal":portalid,
+        "pick_list_values":pick_1,
+        "D_Array" : {         
+          d1:Deal_name2,
+          d2:ST_date,
+          d3:ED_date,
+          d4:Disc,
+          d5:Curr,
+          d6:budget2,
+          d7:pro_bud,
+          d8:billing,
+
+        }
+          })
+       };
+       console.log("req_data",req_data);
+      //  //this.variable = req_data;
+      //  variable.push(req_data)
+      ZOHO.CRM.FUNCTIONS.execute(func_name, req_data)
+      .then(function(data){    
+        var code1 = data.code;    
+         console.log("Final_data",data)
+         if(code1 == "success"){
+          document.getElementById("succ").style.display = "block"; 
+          document.getElementById("psucc").textContent = 'Sucessfully Setup fields';
+         }
+       })
+
+  //    Zoho crm custom function execute    //
+
+  // variable //
+  // zoho.crm.getOrgVariable("Deal_Project").then(function(responce){
+  //   console.log("responce",responce);
+  // })
+
+  // end variable //
+
+
+        },
+  fun(){   
+    // var variable1=[];
+    // console.log("variable1",variable1);
+
+          var Project_fields= []; 
+          var Dname=[];         
+          var S_Date=[];          
+          var E_Date=[];
+          var D_Date=[];
+          var Cu_Date=[];
+          var Budget=[];
+          var All_Deal_fields=[];
+          var Portal_Id1=[];
+          console.log("Portal_Id1",Portal_Id1)
+          var cus_array=[];
+          this.cust_array = cus_array;
+          var Array_pick=[];
+          var cdc1=[];
+
+
+          // var Deal_array1=[];
+         
+          // 
+         
+         
+          Util={};
+          var portalidvalue;
+          var projectidvalue;
+          //console.log("projectsprojects",projects);
+          ZOHO.embeddedApp.on("PageLoad",function(data){
+            //console.log("")
+          //we can write any api or code in the under function embeddedApp.on----- because that represent to display in crm
+          var id=data.EntityId, module = data.Entity;
+       
+      
+          ZOHO.CRM.API.getOrgVariable("zohocrmtesting1__Deal_Project").then(function(data){
+           
+           var succ = data.Success.Content;           
+           var ss = JSON.parse(succ)         
+          
+         
+          var Deal_array =ss.D_Array;
+         
+          // console.log("s2",Deal_array)
+          // Deal_array1.push(Deal_array.d1);
+          // Deal_array1.push(Deal_array.d2);
+          // Deal_array1.push(Deal_array.d3);
+          // Deal_array1.push(Deal_array.d4);
+          // Deal_array1.push(Deal_array.d5);
+          // Deal_array1.push(Deal_array.d6);
+          // Deal_array1.push(Deal_array.d7);
+          // Deal_array1.push(Deal_array.d8);
+
+        let object = JSON.stringify(Deal_array);
+        localStorage.setItem("Deal_array", object);
+       // console.log( "localStorage",localStorage ); 
+        let get_object =JSON.parse(localStorage.getItem("Deal_array"));
+       // console.log("get_object",get_object)
+
+
+         var pick =ss.pick_list_values;        
+         var title = get_object.d1;                   
+         var start = get_object.d2;
+         var end = get_object.d3;
+         var discp = get_object.d4;
+         var curre = get_object.d5;
+         var budgett = get_object.d6;
+         var project_val = get_object.d7;
+         var billingt = get_object.d8;
+        //  console.log("pick",pick)
+        //  console.log("title",title) 
+        //  console.log("start",start) 
+        //  console.log("end",end) 
+        //  console.log("discp",discp) 
+        //  console.log("curre",curre) 
+      //   console.log("budgett",budgett) 
+       //  console.log("project_val",project_val) 
+        //  console.log("billingt",billingt) 
+        
+        localStorage.setItem("picklist", pick);
+        localStorage.setItem("title", title);
+        localStorage.setItem("start", start);
+        localStorage.setItem("end", end);
+        localStorage.setItem("discp", discp);
+        localStorage.setItem("curre", curre);
+        localStorage.setItem("billingt", billingt);
+        localStorage.setItem("budgett", budgett);
+        localStorage.setItem("project_val", project_val);
+
+        });
+
+
+          ZOHO.CRM.META.getFields({"Entity":"Deals"}).then(function(data){
+        
+            Data = JSON.stringify(data);
+           //console.log("ll",Data);         
+            
+            var field = data.fields;
+          //  console.log("filed ",field);
+           
+          
+            //new for loop for push data all to the v-selelct box
+            for (const i in field) {
+              var Api_Data = field[i].data_type;
+              var Api_Name = field[i].api_name;            
+              var Api_field_label= field[i].field_label; 
+        
+                         
+             var container1=document.getElementById("Project_sel");
+              if(Api_Data != "profileimage" && Api_Data != "ownerlookup" && Api_Data != "lookup"){     
+               // console.log('.',Api_field_label," : ",Api_Data)
+                while (Api_field_label){       
+                  if(Api_field_label != "Modified Time"  && Api_field_label != "Created Time"  && Api_field_label != "Last Activity Time" && Api_field_label != "Sales Cycle Duration" && Api_field_label != "Lead Conversion Time" && Api_field_label != "Overall Sales Duration" && Api_field_label != "Probability (%)" && Api_field_label != "Next Step" && Api_field_label != "Stage" && Api_field_label != "Tag"){        
+                    Project_fields.push(Api_field_label);
+                  //  console.log('.',Api_field_label," : ",Api_Data)
+                    if(Api_Data == "text"){ 
+                      // console.log("111Api_field_label",Api_field_label)
+                    c_date = Api_field_label;
+                    api_d = Api_Name;                     
+                     //Dname.push("None");                    
+                     Dname.push({ display: c_date, apiname:api_d})
+                   }
+                   
+                
+                   if(Api_Data == "date"){            
+                     c_date = Api_field_label;
+                     api_d = Api_Name;                     
+                      S_Date.push("None"); 
+                      E_Date.push("None");  
+                      //S_Date.push(c_date)  
+                      S_Date.push({ display: c_date, apiname:api_d})
+                      E_Date.push({ display: c_date, apiname:api_d})
+                     // console.log("Hey Ganesh");
+                    } 
+                    
+                    if(Api_Data == "textarea"){   
+                      D_date = Api_field_label;                
+                      api_t = Api_Name;
+                      D_Date.push("None");
+                     // D_Date.push(D_date);
+                      D_Date.push({ display: D_date, apiname:api_t})
+                     
+                    }
+                    if (Api_Data == "currency")
+                    {
+                        Cu_date = Api_field_label;
+                        api_c = Api_Name;
+
+                        Cu_Date.push("None");                       
+                        Cu_Date.push({ display: Cu_date, apiname:api_c})
+                        
+                        Budget.push("None");
+                        Budget.push({ display: Cu_date, apiname:api_c})
+                       // Cu_Date.push(Cu_date);
+                       // Budget.push(Cu_date);
+                    }
+
+                  }
+                    break;
+               }  
+               
+            }
+            }
+           
+         
+          });
+          
+          
+
+          ZOHO.CRM.META.getFields({"Entity":"Deals"}).then(function(data){
+        
+            Data = JSON.stringify(data);
+           // console.log("OOOO_Data",Data)
+            
+            var field = data.fields;
+            //console.log("filed ",field);
+           
+            for (const i in field) {               
+              var display = field[i].display_label;
+             
+             // console.log("display",display);
+              if(display == "Stage"){
+                var picklist = field[i].pick_list_values;                
+              //  console.log("hiiii ganesh",picklist);
+                //Pick_array.push(picklist);
+                for (const j in picklist) { 
+
+                var picval = picklist[j].display_value;
+                 // console.log("pick val",picval);
+                 Array_pick.push(picval)
+                }
+              }
+            }
+          });
+          //Connector api zoho crm to project
+        
+         
+   
+      //Connector api zoho crm to project
+   
+         
+          var data1 = {
+          
+          }
+          
+          //Invoking the connector API to get portals of the user and populate them in a select list
+          ZOHO.CRM.CONNECTOR.invokeAPI("zohocrmtesting1.sampleprojects.getportals",data1).then(function(dataa){
+          response = dataa.response;
+         // console.log("response",response);
+          responsejson=JSON.parse(response);
+          portal=responsejson.portals;
+         // console.log("portal",portal);
+          PortalJSON=JSON.stringify(portal);
+         // console.log("PortalJSON",PortalJSON);
+          for (i = 0; i < portal.length; i++) 
+          {
+          portalid=portal[i].id_string;
+         // console.log("portalid",portalid);
+          localStorage.setItem("portalid", portalid);
+          
+         // Portal_Id1.push(portalid);
+         // this.portal = portalid;
+          }
+          
+          })
+
+          //Connector api zoho crm to project
+
+         
+        });
+         
+          this.articles=Project_fields;
+          this.Deal_name=Dname;
+          this.S_Date1=S_Date;          
+          this.E_Date1=E_Date;
+          this.D_Date1=D_Date;
+          this.Cu_Date1=Cu_Date; 
+          this.Budget1 = Budget;
+          this.Cus_fields=cus_array;
+          this.Pick_val=Array_pick;
+          //this.Pick=pick1;
+
+
+       //  this.Pick="Qualification";      
+        // this.Pro_budget="Amount";
+      
+     
+ //window.addEventListener('load', () => {
+
+        var x1 = window.localStorage.getItem("picklist");
+        console.log("picklist for checking:",x1);
+        var x2 =window.localStorage.getItem("start");
+        var x3 =window.localStorage.getItem("end");
+        var x4=window.localStorage.getItem("discp");
+        var x5=window.localStorage.getItem("curre");       
+        var x6=window.localStorage.getItem("budgett");
+        var x7=window.localStorage.getItem("project_val");
+        var x8 = window.localStorage.getItem("billingt");
+              var x6_budget = parseInt(x6);
+              var x8_billingt = parseInt(x8);
+              console.log("project val",x7);      
+        var x9 =window.localStorage.getItem("title");
+
+         this.Pick=x1;  
+         this.Deal_name1=x9;      
+         this.apiname=x2;
+         this.apiname2=x3;
+         this.dis=x4;
+         this.Currency=x5;
+         this.budget=x6_budget;
+         this.Pro_budget=x7;
+         this.Billing= x8_billingt;
+
+//})
+
+   /*     setTimeout(function() {
+          console.log("sfdjksajdkfaj")        
+        let get_object =JSON.parse(localStorage.getItem("Deal_array"));
+        console.log("get_object1111",get_object)
+        console.log("hiii ganesh how r u")
+
+
+         var pick =ss.pick_list_values;        
+         var title = get_object.d1;    
+         console.log("title",title)                
+         var start = get_object.d2;
+         var end = get_object.d3;
+         var discp = get_object.d4;
+         var curre = get_object.d5;
+         var budgett = get_object.d6;
+         var project_val = get_object.d7;
+         var billingt = get_object.d8;
+         console.log("console result in settimeout")
+         console.log("pick",pick)
+        
+         console.log("start",start) 
+         console.log("end",end) 
+         console.log("discp",discp) 
+         console.log("curre",curre) 
+         console.log("budgett",budgett) 
+         console.log("project_val",project_val) 
+         console.log("billingt",billingt) 
+        
+        localStorage.setItem("picklist", pick);
+        localStorage.setItem("title", title);
+        localStorage.setItem("start", start);
+        localStorage.setItem("end", end);
+        localStorage.setItem("discp", discp);
+        localStorage.setItem("curre", curre);
+        localStorage.setItem("billingt", billingt);
+        localStorage.setItem("budgett", budgett);
+        localStorage.setItem("project_val", project_val);
+
+       console.log("Hello after 2 seconds!");
+
+        var x1 = window.localStorage.getItem("picklist");         
+        var x2 =window.localStorage.getItem("start");
+        var x3 =window.localStorage.getItem("end");
+        var x4=window.localStorage.getItem("discp");
+        var x5=window.localStorage.getItem("curre");       
+        var x6=window.localStorage.getItem("budgett");
+        var x7=window.localStorage.getItem("project_val");
+        var x8 = window.localStorage.getItem("billingt");
+        var x9 =window.localStorage.getItem("title");
+
+         this.Pick=x1;  
+         this.Deal_name1=x9;      
+         this.apiname=x2;
+         this.apiname2=x3;
+         this.dis=x4;
+         this.Currency=x5;
+         this.budget=x6;
+         this.Pro_budget=x7;
+         this.Billing= x8;
+
+        }, 1000); 
+    */
+  ZOHO.embeddedApp.init();
+        
+          
+          
+            },
+
+            
+ onChange() {
+
+  var mod = this.budget;
+  console.log("mod",mod)
+ // if(mod === 'Based on project Amount' || mod ==='Based on project Hours')   !=
+  if(mod == 1 || mod == 2) 
+  {
+    var Budget_data=[];
+
+ZOHO.CRM.META.getFields({"Entity":"Deals"}).then(function(data){
+  
+  Data = JSON.stringify(data);
+ //console.log("llggggg",Data);
+ var field = data.fields;
+  
+     
+     // console.log("Budget_data",Budget_data)
+      for (const i in field) {
+        var Api_Data = field[i].data_type;
+        var Api_Name = field[i].api_name;            
+        var Api_field_label= field[i].field_label; 
+  
+                   
+       var container1=document.getElementById("Project_sel");
+        if(Api_Data != "profileimage" && Api_Data != "ownerlookup" && Api_Data != "lookup"){     
+         // console.log('.',Api_Data)
+          
+          while (Api_field_label){       
+            if(Api_field_label != "Modified Time"  && Api_field_label != "Created Time"  && Api_field_label != "Last Activity Time" && Api_field_label != "Sales Cycle Duration" && Api_field_label != "Lead Conversion Time" && Api_field_label != "Overall Sales Duration" && Api_field_label != "Probability (%)" && Api_field_label != "Next Step" && Api_field_label != "Stage" && Api_field_label != "Deal Name"){        
+
+              if (Api_Data == "currency")
+              {   
+                  console.log("Api_field_label",Api_field_label)
+                  Cu_date = Api_field_label;
+                  api_c = Api_Name;
+                  Budget_data.push("None");
+                  Budget_data.push({ display: Cu_date, apiname:api_c}) 
+
+              }
+
+            }
+              break;
+         }  
+         
+      }
+      }
+      
+
+});
+
+
+console.log("Budget_data",Budget_data);
+this.Budget11 = Budget_data;
+// window.addEventListener('load', () => {
+// this.Pro_budget="Amount";
+// })
+  }
+  else{
+    this.Budget11 = "No data available";
+  }
+  
+   // });
+ 
+  
+
+ // ZOHO.embeddedApp.init();
+      
+    
+                 },
+
+  
+
+  mfunction(){
+ZOHO.embeddedApp.on("PageLoad",function(data)
+{
+
+  var data1 = {
+          
+  }
+  
+  //Invoking the connector API to get portals of the user and populate them in a select list
+  ZOHO.CRM.CONNECTOR.invokeAPI("zohocrmtesting1.sampleprojects.getportals",data1).then(function(dataa){
+ // console.log("ganeshtadi01@lksadf");
+  // console.log("dataa",dataa);
+  response = dataa.response;
+  responsejson=JSON.parse(response);
+  portal=responsejson.portals;
+  console.log("portal",portal);
+  PortalJSON=JSON.stringify(portal);
+  console,log("PortalJSON",PortalJSON)
+  
+  })
+
+ 
+
+});
+ZOHO.embeddedApp.init();
+        },
+ 
+ 
+       
+      
+
+
+        
+    sub(){        
+         console.log("sss",this.Amount);
+         console.log("ss",this.selected[i]);
+        },
+
+      },
+     created: function(){
+       this.fun()
+       this.onChange()
+        },
+     
+
+    })
+
+</script>
+
+  </body>
+</html>
