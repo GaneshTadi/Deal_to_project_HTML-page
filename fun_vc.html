@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  
+   
+    <link rel ="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <meta charset="UTF-8">
+<script src="https://live.zwidgets.com/js-sdk/1.1/ZohoEmbededAppSDK.min.js"></script>
+
+<script>
+
+
+ZOHO.embeddedApp.on("PageLoad",function(data){
+  //we can write any api or code in the under function embeddedApp.on----- because that represent to display in crm
+ 
+
+
+
+
+
+// clode the function embeddedApp.on----
+   });
+
+ZOHO.embeddedApp.init();
+
+
+</script>
+<script src="https://crm.zoho.com/crm/javascript/zohocrm.v2.0.min.js"></script>
+<script>
+    // Initialize the Zoho CRM API client
+    var client = ZohoCrm.Client.initialize({
+        client_id: 'your_client_id',
+        redirect_uri: 'your_redirect_uri',
+        scope: 'ZohoCRM.modules.all'
+    });
+
+    // Retrieve all accounts
+    client.API.MODULES.getRecords({
+        module: 'Accounts',
+        success: function (data) {
+            // Print the account names
+            for (var i = 0; i < data.length; i++) {
+                console.log(data[i].Account_Name);
+            }
+        },
+        error: function (error) {
+            console.log(error);
+        }
+    });
+
+</script>
+
+<script>
+
+  
+  Util={};
+var portalidvalue;
+var projectidvalue;
+//Subscribe to the EmbeddedApp onPageLoad event before initializing the widget 
+ZOHO.embeddedApp.on("PageLoad",function(data)
+{
+var data = {
+}
+//Invoking the connector API to get portals of the user and populate them in a select list
+ZOHO.CRM.CONNECTOR.invokeAPI("testextensioncrm.zohoprojects.getportals",data)
+.then(function(dataa){
+response = dataa.response;
+responsejson=JSON.parse(response);
+portal=responsejson.portals;
+
+for (i = 0; i < portal.length; i++) 
+{
+portalid=portal[i].id_string;
+portalname=portal[i].name;
+var portallist = document.getElementById("portallist");
+var option = document.createElement("OPTION");
+option.innerHTML = portalname;
+option.value = portalid;
+portallist.appendChild(option);
+}
+})
+
+/*Fetching the projects associated to the portal selected on click of the "Get Projects" button*/
+Util.getproject=function()
+{
+portalidvalue=document.getElementById("portallist").value;
+
+var data = {
+
+"portalid" : portalidvalue
+}
+/*Invoking the connector API to get projects of the user with respect to the portal chosen and populate them in a select list*/
+ZOHO.CRM.CONNECTOR.invokeAPI("testextensioncrm.zohoprojects.getprojects",data)
+.then(function(dataa){
+response = dataa.response;
+responsejson=JSON.parse(response);
+project=responsejson.projects;
+$('#projectlist').empty();
+for (j = 0; j < project.length; j++) 
+{
+projectid=project[j].id_string;
+projectname=project[j].name;
+var projectlist = document.getElementById("projectlist");
+var option = document.createElement("OPTION");
+option.innerHTML = projectname;
+option.value = projectid;
+projectlist.appendChild(option);
+}
+})
+}
+/*Updating the values of the portal ID and project ID selected in the select list to the CRM variables*/
+Util.getvalues=function()
+{
+portalidvalue=document.getElementById("portallist").value;
+projectidvalue=document.getElementById("projectlist").value;
+var variableMap = { "apiname": "testextensioncrm__Portal_Id", "value": portalidvalue};
+ZOHO.CRM.CONNECTOR.invokeAPI("crm.set", variableMap);
+var variableMap = { "apiname": "testextensioncrm__Project_Id", "value": projectidvalue};
+ZOHO.CRM.CONNECTOR.invokeAPI("crm.set", variableMap);
+});
+});
+}
+})
+</script>
+  </head>
+  <body>
+    <h2>This is zoho extension</h2>
+    <div id="contain"></div>
+  </body>
+</html>
